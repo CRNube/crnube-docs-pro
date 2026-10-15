@@ -1,0 +1,8 @@
+{
+  "root": true,
+  "extends": [ "plugin:@wordpress/eslint-plugin/recommended" ],
+  "globals": { "window": "readonly" },
+  "rules": {
+    "jsdoc/require-param": "off"
+  }
+}

@@ -1,0 +1,292 @@
+// CRNube Docs: "Access" admin screen.
+
+$border: #e0e0e0;
+$muted: #757575;
+$accent: var(--wp-admin-theme-color, #3858e9);
+
+.crnd-access {
+	max-width: 1300px;
+	padding: 20px 8px 40px 0;
+
+	.components-notice {
+		margin: 0 0 12px;
+	}
+}
+
+.crnd-access__header {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: 12px;
+	margin-bottom: 16px;
+
+	h1 {
+		margin: 0;
+		padding: 0;
+		font-size: 23px;
+		font-weight: 600;
+	}
+
+	p {
+		margin: 4px 0 0;
+		color: #50575e;
+	}
+}
+
+.crnd-access__links {
+	display: flex;
+	gap: 8px;
+}
+
+.crnd-access-code {
+	margin: 8px 0;
+	padding: 8px 10px;
+	font-size: 12px;
+	white-space: pre-wrap;
+	background: #fff;
+	border: 1px solid $border;
+	border-radius: 4px;
+}
+
+.crnd-access__body {
+	display: grid;
+	grid-template-columns: 260px minmax(0, 1fr);
+	align-items: start;
+	gap: 18px;
+
+	@media (max-width: 900px) {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+.crnd-access-groups,
+.crnd-access-main {
+	padding: 14px;
+	background: #fff;
+	border: 1px solid $border;
+	border-radius: 10px;
+}
+
+.crnd-access-groups__head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 8px;
+
+	h2 {
+		margin: 0;
+		font-size: 11px;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: $muted;
+	}
+}
+
+.crnd-access-group {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	width: 100%;
+	padding: 8px;
+	font: inherit;
+	text-align: left;
+	color: #1e1e1e;
+	background: none;
+	border: 0;
+	border-radius: 8px;
+	cursor: pointer;
+
+	&:hover {
+		background: #f0f0f0;
+	}
+
+	&.is-selected {
+		color: $accent;
+		font-weight: 600;
+		background: color-mix(in srgb, #{$accent} 12%, #fff);
+	}
+
+	.dashicons {
+		color: $muted;
+	}
+
+	&__name {
+		flex: 1;
+		min-width: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	&__count {
+		padding: 0 7px;
+		font-size: 11px;
+		line-height: 18px;
+		color: $muted;
+		background: #f0f0f0;
+		border-radius: 999px;
+	}
+}
+
+.crnd-access-main__head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 10px;
+	margin-bottom: 14px;
+
+	h2 {
+		margin: 0;
+		font-size: 18px;
+	}
+
+	p {
+		margin: 4px 0 0;
+	}
+}
+
+.crnd-access-panel {
+	margin-bottom: 16px;
+	padding: 14px;
+	background: #f9fafb;
+	border: 1px solid #f0f0f0;
+	border-radius: 8px;
+
+	h3 {
+		margin: 0 0 10px;
+		font-size: 13px;
+	}
+}
+
+.crnd-access-add {
+	display: grid;
+	grid-template-columns: minmax(200px, 2fr) minmax(160px, 1.5fr) auto auto;
+	align-items: end;
+	gap: 10px;
+
+	@media (max-width: 1100px) {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	.components-base-control {
+		margin: 0;
+	}
+}
+
+.crnd-access-date {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+
+	label {
+		font-size: 11px;
+		font-weight: 500;
+		text-transform: uppercase;
+	}
+
+	input {
+		height: 40px;
+	}
+
+	small {
+		color: $muted;
+	}
+}
+
+.crnd-access-add__footer {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	margin-top: 12px;
+}
+
+.crnd-access-csv {
+	cursor: pointer;
+}
+
+.crnd-access-members,
+.crnd-access-preview {
+	width: 100%;
+	border-collapse: collapse;
+
+	th {
+		padding: 8px;
+		font-size: 11px;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-align: left;
+		text-transform: uppercase;
+		color: $muted;
+		border-bottom: 1px solid $border;
+	}
+
+	td {
+		padding: 8px;
+		vertical-align: middle;
+		border-bottom: 1px solid #f0f0f0;
+	}
+
+	tr.is-expired td {
+		color: $muted;
+	}
+}
+
+.crnd-access-preview {
+	margin: 10px 0;
+}
+
+.crnd-access-email {
+	display: block;
+	font-size: 12px;
+	color: $muted;
+}
+
+.crnd-access-status {
+	padding: 2px 9px;
+	font-size: 12px;
+	font-weight: 500;
+	border-radius: 999px;
+
+	&.is-active {
+		color: #00703c;
+		background: #e6f5ec;
+	}
+
+	&.is-expired {
+		color: #8a2424;
+		background: #fcf0f1;
+	}
+}
+
+.crnd-access-muted {
+	color: $muted;
+}
+
+.crnd-access-empty {
+	margin: 10px 0;
+	color: $muted;
+}
+
+.crnd-access-errors {
+	font-size: 12px;
+	word-break: break-all;
+}
+
+.crnd-modal-form {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	min-width: 340px;
+}
+
+.crnd-modal-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 8px;
+	margin-top: 8px;
+}

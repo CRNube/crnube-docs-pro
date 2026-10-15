@@ -1,0 +1,15 @@
+parameters:
+    level: 6
+    paths:
+        - crnube-docs-pro.php
+        - src
+        - templates
+        - uninstall.php
+    bootstrapFiles:
+        - tests/phpstan-bootstrap.php
+    treatPhpDocTypesAsCertain: false
+    scanFiles:
+        - tests/stubs/elementor.php
+    # CRNube Docs, checked out next to this plugin (wp-content/plugins/crnube-docs).
+    scanDirectories:
+        - ../crnube-docs/src

@@ -1,0 +1,16 @@
+{
+  "name": "crnube-docs-pro",
+  "private": true,
+  "description": "Admin apps of CRNube Docs Pro.",
+  "license": "GPL-2.0-or-later",
+  "scripts": {
+    "build": "wp-scripts build library-pro=./assets/src/library/index.js reports=./assets/src/reports/index.js access=./assets/src/access/index.js --output-path=build",
+    "start": "wp-scripts start library-pro=./assets/src/library/index.js reports=./assets/src/reports/index.js access=./assets/src/access/index.js --output-path=build",
+    "lint:js": "wp-scripts lint-js assets/src assets/js",
+    "lint:css": "wp-scripts lint-style \"assets/src/**/*.scss\""
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^30.0.0",
+    "typescript": "^5.9.3"
+  }
+}

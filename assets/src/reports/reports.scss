@@ -1,0 +1,577 @@
+// CRNube Docs: reports screen.
+//
+// Series colors come from the validated reference palette (slots 1 and 2): they pass
+// the lightness, chroma, color-blind separation and contrast checks on this surface.
+
+.crnd-reports {
+	--crnd-series-downloads: #2a78d6;
+	--crnd-series-views: #eb6834;
+	--crnd-surface: #fff;
+	--crnd-text: #1e1e1e;
+	--crnd-text-2: #50575e;
+	--crnd-muted: #757575;
+	--crnd-grid: #ececec;
+	--crnd-border: #e0e0e0;
+
+	max-width: 1400px;
+	padding: 20px 8px 40px 0;
+	color: var(--crnd-text);
+}
+
+.crnd-reports__header {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: 12px;
+	margin-bottom: 16px;
+
+	h1 {
+		margin: 0;
+		padding: 0;
+		font-size: 23px;
+		font-weight: 600;
+	}
+}
+
+.crnd-reports__subtitle {
+	margin: 4px 0 0;
+	color: var(--crnd-text-2);
+}
+
+.crnd-reports__export {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+// One row of filters above every chart.
+.crnd-filters {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	gap: 12px;
+	margin-bottom: 18px;
+	padding: 14px 16px;
+	background: var(--crnd-surface);
+	border: 1px solid var(--crnd-border);
+	border-radius: 10px;
+
+	.components-base-control {
+		min-width: 190px;
+		margin: 0;
+	}
+
+	&__dates {
+		display: flex;
+		gap: 8px;
+
+		label {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			font-size: 11px;
+			font-weight: 500;
+			text-transform: uppercase;
+		}
+
+		input {
+			height: 40px;
+		}
+	}
+
+	&__document {
+		flex: 1 1 260px;
+		max-width: 420px;
+	}
+}
+
+.crnd-reports__body {
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+	transition: opacity 0.15s;
+
+	&.is-loading {
+		opacity: 0.6;
+	}
+}
+
+// ---------- KPI tiles ----------
+
+.crnd-kpis {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+	gap: 12px;
+}
+
+.crnd-kpi {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	padding: 16px 18px;
+	background: var(--crnd-surface);
+	border: 1px solid var(--crnd-border);
+	border-radius: 10px;
+
+	&__label {
+		font-size: 13px;
+		color: var(--crnd-text-2);
+	}
+
+	&__value {
+		font-size: 30px;
+		font-weight: 600;
+		line-height: 1.15;
+		font-variant-numeric: tabular-nums;
+	}
+
+	&__delta {
+		font-size: 12px;
+		color: var(--crnd-muted);
+
+		&.is-up {
+			color: #00703c;
+		}
+
+		&.is-down {
+			color: #b32d2e;
+		}
+	}
+
+	// The tile's identity mark, next to the label, never on the number.
+	&--downloads &__label::before,
+	&--views &__label::before {
+		content: "";
+		display: inline-block;
+		width: 10px;
+		height: 10px;
+		margin-right: 6px;
+		border-radius: 3px;
+		vertical-align: -1px;
+	}
+
+	&--downloads &__label::before {
+		background: var(--crnd-series-downloads);
+	}
+
+	&--views &__label::before {
+		background: var(--crnd-series-views);
+	}
+}
+
+// ---------- Panels ----------
+
+.crnd-panel {
+	min-width: 0;
+	padding: 16px 18px;
+	background: var(--crnd-surface);
+	border: 1px solid var(--crnd-border);
+	border-radius: 10px;
+
+	&__title {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		margin: 0 0 12px;
+		font-size: 14px;
+		font-weight: 600;
+	}
+
+	&__hint {
+		margin: -6px 0 10px;
+		font-size: 12px;
+		color: var(--crnd-text-2);
+	}
+
+	&__empty {
+		margin: 8px 0;
+		color: var(--crnd-muted);
+	}
+}
+
+.crnd-grid-panels {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	gap: 18px;
+}
+
+// ---------- Trend chart ----------
+
+.crnd-trend {
+	margin: 0;
+}
+
+.crnd-legend {
+	display: flex;
+	gap: 18px;
+	margin-bottom: 8px;
+	font-size: 12px;
+	color: var(--crnd-text-2);
+
+	&__item {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+	}
+}
+
+.crnd-swatch {
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border-radius: 3px;
+
+	&--downloads {
+		background: var(--crnd-series-downloads);
+	}
+
+	&--views {
+		background: var(--crnd-series-views);
+	}
+}
+
+.crnd-trend__plot {
+	position: relative;
+
+	svg {
+		display: block;
+		width: 100%;
+		height: auto;
+		overflow: visible;
+	}
+}
+
+.crnd-grid {
+	stroke: var(--crnd-grid);
+	stroke-width: 1;
+}
+
+.crnd-axis {
+	font-size: 11px;
+	fill: var(--crnd-muted);
+	font-variant-numeric: tabular-nums;
+}
+
+.crnd-line {
+	fill: none;
+	stroke-width: 2;
+	stroke-linejoin: round;
+	stroke-linecap: round;
+
+	&--downloads {
+		stroke: var(--crnd-series-downloads);
+	}
+
+	&--views {
+		stroke: var(--crnd-series-views);
+	}
+}
+
+.crnd-crosshair {
+	stroke: #a7aaad;
+	stroke-width: 1;
+	stroke-dasharray: 3 3;
+}
+
+.crnd-dot {
+	stroke: var(--crnd-surface);
+	stroke-width: 2;
+
+	&--downloads {
+		fill: var(--crnd-series-downloads);
+	}
+
+	&--views {
+		fill: var(--crnd-series-views);
+	}
+}
+
+.crnd-endlabels text {
+	font-size: 11px;
+	font-weight: 600;
+	fill: var(--crnd-text-2);
+	paint-order: stroke;
+	stroke: var(--crnd-surface);
+	stroke-width: 3px;
+}
+
+.crnd-tooltip {
+	position: absolute;
+	top: 0;
+	z-index: 5;
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+	min-width: 150px;
+	padding: 8px 10px;
+	font-size: 12px;
+	color: var(--crnd-text);
+	white-space: nowrap;
+	pointer-events: none;
+	background: var(--crnd-surface);
+	border: 1px solid var(--crnd-border);
+	border-radius: 8px;
+	box-shadow: 0 6px 20px -8px rgb(0 0 0 / 25%);
+	transform: translateX(-50%);
+
+	span {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+	}
+
+	&--small {
+		top: auto;
+		bottom: calc(100% + 6px);
+		left: 50%;
+		min-width: 0;
+	}
+}
+
+.crnd-datatable {
+	margin-top: 8px;
+	font-size: 12px;
+
+	summary {
+		color: var(--crnd-text-2);
+		cursor: pointer;
+	}
+
+	table {
+		margin-top: 8px;
+		border-collapse: collapse;
+	}
+
+	th,
+	td {
+		padding: 3px 12px 3px 0;
+		text-align: left;
+		font-variant-numeric: tabular-nums;
+	}
+}
+
+// ---------- Bar lists ----------
+
+.crnd-bars {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+
+	&__row {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto;
+		gap: 4px 10px;
+		margin: 0 0 10px;
+	}
+
+	&__label {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	&__value {
+		font-weight: 600;
+		font-variant-numeric: tabular-nums;
+
+		small {
+			margin-left: 6px;
+			font-weight: 400;
+			color: var(--crnd-muted);
+		}
+	}
+
+	&__track {
+		grid-column: 1 / -1;
+		height: 8px;
+		background: #f3f4f6;
+		border-radius: 4px;
+	}
+
+	&__fill {
+		display: block;
+		height: 100%;
+		background: var(--crnd-series-downloads);
+		border-radius: 4px;
+	}
+}
+
+// ---------- Top documents ----------
+
+.crnd-top,
+.crnd-events {
+	width: 100%;
+	border-collapse: collapse;
+
+	th {
+		padding: 8px 10px;
+		font-size: 11px;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-align: left;
+		text-transform: uppercase;
+		color: var(--crnd-muted);
+		border-bottom: 1px solid var(--crnd-border);
+	}
+
+	td {
+		padding: 9px 10px;
+		vertical-align: middle;
+		border-bottom: 1px solid #f0f0f0;
+	}
+
+	tbody tr:hover {
+		background: #f9fafb;
+	}
+
+	tbody tr:last-child td {
+		border-bottom: 0;
+	}
+}
+
+.crnd-num {
+	text-align: right !important;
+	font-variant-numeric: tabular-nums;
+}
+
+.crnd-nowrap {
+	white-space: nowrap;
+}
+
+.crnd-muted {
+	color: var(--crnd-muted);
+}
+
+.crnd-split {
+	display: flex;
+	gap: 2px;
+	height: 6px;
+	margin-top: 6px;
+
+	span {
+		display: block;
+		min-width: 0;
+		border-radius: 3px;
+	}
+
+	&__downloads {
+		background: var(--crnd-series-downloads);
+	}
+
+	&__views {
+		background: var(--crnd-series-views);
+	}
+}
+
+.crnd-link {
+	padding: 0;
+	font: inherit;
+	font-weight: 500;
+	text-align: left;
+	color: var(--wp-admin-theme-color, #2271b1);
+	background: none;
+	border: 0;
+	cursor: pointer;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+// ---------- Hours ----------
+
+.crnd-hours {
+	display: grid;
+	grid-template-columns: repeat(24, 1fr);
+	align-items: end;
+	gap: 2px;
+	height: 120px;
+
+	&__col {
+		position: relative;
+		display: flex;
+		align-items: flex-end;
+		height: 100%;
+		cursor: default;
+	}
+
+	&__bar {
+		display: block;
+		width: 100%;
+		background: var(--crnd-series-downloads);
+		border-radius: 3px 3px 0 0;
+		opacity: 0.85;
+	}
+
+	&__col.is-hover &__bar {
+		opacity: 1;
+	}
+
+	&__axis {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 4px;
+		font-size: 11px;
+		color: var(--crnd-muted);
+	}
+}
+
+// ---------- Activity log ----------
+
+.crnd-events-wrap {
+	overflow-x: auto;
+}
+
+.crnd-events td {
+	font-size: 13px;
+}
+
+.crnd-events td:nth-child(2) {
+	min-width: 220px;
+}
+
+.crnd-action {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	white-space: nowrap;
+
+	&::before {
+		content: "";
+		width: 8px;
+		height: 8px;
+		border-radius: 2px;
+	}
+
+	&--download::before {
+		background: var(--crnd-series-downloads);
+	}
+
+	&--view::before {
+		background: var(--crnd-series-views);
+	}
+}
+
+.crnd-source {
+	max-width: 220px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	color: var(--crnd-text-2);
+}
+
+.crnd-pager {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
+	margin-top: 12px;
+	color: var(--crnd-muted);
+}
+
+.crnd-reports__privacy {
+	margin: 0;
+	font-size: 12px;
+	color: var(--crnd-muted);
+}
